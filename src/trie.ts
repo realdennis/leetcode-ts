@@ -1,31 +1,35 @@
 class Trie {
 	private map: Map<string, Trie> = new Map();
-	private EOF: string = "eof";
+	constructor() {}
 	insert(word: string): void {
-		if (word.length === 0) {
-			if (!this.map.has(this.EOF)) this.map.set(this.EOF, new Trie());
+		if (word === "") {
+			this.map.set("#", new Trie());
 			return;
 		}
 		const first = word.charAt(0);
+		const rest = word.substring(1);
 		if (!this.map.has(first)) this.map.set(first, new Trie());
-		const firstTrie = this.map.get(first);
-		firstTrie.insert(word.substring(1));
+
+		this.map.get(first).insert(rest);
 	}
 
 	search(word: string): boolean {
-		if (word.length === 0) return this.map.has(this.EOF);
+		if (word === "") return this.map.has("#"); // check eof
 
 		const first = word.charAt(0);
+		const rest = word.substring(1);
+
 		if (!this.map.has(first)) return false;
-		return this.map.get(first).search(word.substring(1));
+		return this.map.get(first).search(rest);
 	}
 
 	startsWith(prefix: string): boolean {
+		if (prefix === "") return true; // no need for checking eof
 		const first = prefix.charAt(0);
-		if (!this.map.has(first)) return false;
+		const rest = prefix.substring(1);
 
-		if (prefix.length === 1) return true;
-		return this.map.get(first).startsWith(prefix.substring(1));
+		if (!this.map.has(first)) return false;
+		return this.map.get(first).startsWith(rest);
 	}
 }
 
