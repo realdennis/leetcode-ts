@@ -3,16 +3,18 @@
  */
 function moveZeroes(nums: number[]): void {
   const N = nums.length;
-  let pos1 = 0;
-  let pos0 = -1;
 
-  while (pos1 < N) {
-    if (nums[pos1] === 0) {
-      pos0 = Math.max(pos0, pos1) + 1;
-      while (pos0 < N && nums[pos0] === 0) pos0++;
-      if (pos0 === N) break;
-      [nums[pos1], nums[pos0]] = [nums[pos0], nums[pos1]];
+  let ptr1 = 0,
+    ptr2 = 0;
+  while (true) {
+    while (ptr2 < N && nums[ptr2] === 0) ptr2++;
+    if (ptr2 === N) break;
+
+    if (ptr1 !== ptr2) {
+      // prevent redundant swap
+      [nums[ptr1], nums[ptr2]] = [nums[ptr2], nums[ptr1]]; // swap
     }
-    pos1++;
+    ptr1++;
+    ptr2++;
   }
 }
