@@ -1,3 +1,4 @@
+// O(n ** 2)
 function lengthOfLIS(nums: number[]): number {
   /**
     
