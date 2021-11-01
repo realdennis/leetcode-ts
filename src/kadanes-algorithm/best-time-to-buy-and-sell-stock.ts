@@ -1,5 +1,5 @@
 function maxProfit(prices: number[]): number {
-  /**
+    /**
   
   For this prob,   the prices = [7, 1, 5, 3, 6, 4], 
   we can transform to  profits = [-6, 4, -2, 3, -2]
@@ -21,27 +21,27 @@ function maxProfit(prices: number[]): number {
   
   **/
 
-  // preprocessing for the profits array
-  const profits = [];
+    // preprocessing for the profits array
+    const profits = [];
 
-  for (let i = 0; i < prices.length - 1; i++) {
-    const profit = -prices[i] + prices[i + 1]; // buy ith sell i+1th
-    profits.push(profit);
-  }
+    for (let i = 0; i < prices.length - 1; i++) {
+        const profit = -prices[i] + prices[i + 1]; // buy ith sell i+1th
+        profits.push(profit);
+    }
 
-  // calc the maximum subarray sum
+    // calc the maximum subarray sum
 
-  // using kadane algorithm
-  const N = profits.length;
-  let maxSum = 0;
-  let ret = 0; // just don't buy and sell case
+    // using kadane algorithm
+    const N = profits.length;
+    let maxSum = 0;
+    let ret = 0; // just don't buy and sell case
 
-  for (let i = 0; i < N; i++) {
-    if (maxSum < 0) maxSum = 0;
+    for (let i = 0; i < N; i++) {
+        if (maxSum < 0) maxSum = 0;
 
-    maxSum += profits[i];
+        maxSum += profits[i];
 
-    ret = Math.max(ret, maxSum);
-  }
-  return ret;
+        ret = Math.max(ret, maxSum);
+    }
+    return ret;
 }

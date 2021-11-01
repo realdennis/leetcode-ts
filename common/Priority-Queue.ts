@@ -1,5 +1,5 @@
 const {
-  MinPriorityQueue,
-  MaxPriorityQueue,
-  PriorityQueueItem,
+    MinPriorityQueue,
+    MaxPriorityQueue,
+    PriorityQueueItem,
 } = require("@datastructures-js/priority-queue");

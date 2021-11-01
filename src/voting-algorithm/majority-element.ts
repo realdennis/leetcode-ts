@@ -1,5 +1,5 @@
 function majorityElement(nums: number[]): number {
-	/**
+    /**
         Voting algorithm
         
         For initial, we can have assume first candidate (nums[0]) get the votes = 1 (means one vote)
@@ -11,15 +11,15 @@ function majorityElement(nums: number[]): number {
         This algorithm could be proven that if there's a candidate has the least N/2 vote, it could not be elimate by other candidates.
         
     **/
-	const N = nums.length;
-	let candidate = nums[0],
-		votes = 1;
+    const N = nums.length;
+    let candidate = nums[0],
+        votes = 1;
 
-	for (let i = 1; i < N; i++) {
-		if (votes === 0) candidate = nums[i];
+    for (let i = 1; i < N; i++) {
+        if (votes === 0) candidate = nums[i];
 
-		votes += nums[i] === candidate ? 1 : -1;
-	}
+        votes += nums[i] === candidate ? 1 : -1;
+    }
 
-	return candidate;
+    return candidate;
 }

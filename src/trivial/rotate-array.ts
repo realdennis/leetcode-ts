@@ -21,19 +21,19 @@ reverse(k,N-1)
 **/
 
 function rotate(nums: number[], k: number): void {
-	const N = nums.length;
-	const K = k % N; // the fucking trap
+    const N = nums.length;
+    const K = k % N; // the fucking trap
 
-	const reverse = (lo: number, hi: number): void => {
-		// don't forget we need in-place
-		while (lo < hi) {
-			[nums[lo], nums[hi]] = [nums[hi], nums[lo]];
-			lo++;
-			hi--;
-		}
-	};
+    const reverse = (lo: number, hi: number): void => {
+        // don't forget we need in-place
+        while (lo < hi) {
+            [nums[lo], nums[hi]] = [nums[hi], nums[lo]];
+            lo++;
+            hi--;
+        }
+    };
 
-	reverse(0, N - 1);
-	reverse(0, K - 1);
-	reverse(K, N - 1);
+    reverse(0, N - 1);
+    reverse(0, K - 1);
+    reverse(K, N - 1);
 }

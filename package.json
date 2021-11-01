@@ -1,16 +1,16 @@
 {
-  "name": "shuffle",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "@datastructures-js/priority-queue": "^5.2.0",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.176",
-    "@types/node": "^16.11.6",
-    "ts-node": "^10.3.0",
-    "typescript": "^4.4.4"
-  }
+    "name": "shuffle",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {
+        "@datastructures-js/priority-queue": "^5.2.0",
+        "lodash": "^4.17.21"
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.14.176",
+        "@types/node": "^16.11.6",
+        "ts-node": "^10.3.0",
+        "typescript": "^4.4.4"
+    }
 }

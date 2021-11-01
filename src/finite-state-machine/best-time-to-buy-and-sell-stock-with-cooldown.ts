@@ -30,23 +30,23 @@ The state machine be like
 
 // O(n) time, O(n) space, for O(1) space, check the `best-time-to-buy-and-sell-stock-with-cooldown-optimize`
 function maxProfit(prices: number[]): number {
-  const N = prices.length;
+    const N = prices.length;
 
-  const hold = Array.from({ length: N }, () => 0);
-  const release = Array.from({ length: N }, () => 0);
-  const idle = Array.from({ length: N }, () => 0);
+    const hold = Array.from({ length: N }, () => 0);
+    const release = Array.from({ length: N }, () => 0);
+    const idle = Array.from({ length: N }, () => 0);
 
-  if (N < 2) return 0;
+    if (N < 2) return 0;
 
-  hold[0] = -prices[0];
-  release[0] = Number.MIN_SAFE_INTEGER;
-  idle[0] = 0;
+    hold[0] = -prices[0];
+    release[0] = Number.MIN_SAFE_INTEGER;
+    idle[0] = 0;
 
-  for (let i = 1; i < N; i++) {
-    hold[i] = Math.max(hold[i - 1], idle[i - 1] - prices[i]);
-    release[i] = hold[i - 1] + prices[i];
-    idle[i] = Math.max(idle[i - 1], release[i - 1]);
-  }
+    for (let i = 1; i < N; i++) {
+        hold[i] = Math.max(hold[i - 1], idle[i - 1] - prices[i]);
+        release[i] = hold[i - 1] + prices[i];
+        idle[i] = Math.max(idle[i - 1], release[i - 1]);
+    }
 
-  return Math.max(release[N - 1], idle[N - 1]);
+    return Math.max(release[N - 1], idle[N - 1]);
 }

@@ -1,6 +1,6 @@
 export {};
 function findTargetSumWays(nums: number[], target: number): number {
-  /**
+    /**
       
       We can use the DP to keep the local optimal solution
       
@@ -13,23 +13,22 @@ function findTargetSumWays(nums: number[], target: number): number {
       
       dp[N-1][j] = nums[N-1] * 1 === j or nums[N-1] * (-1) === j
       **/
-  const N = nums.length;
-  const dp = _.memoize(
-    (startIdx: number, target: number): number => {
-      if (startIdx === N) return 0;
-      if (startIdx === N - 1)
-        return (
-          (nums[N - 1] === target ? 1 : 0) +
-          (nums[N - 1] === -1 * target ? 1 : 0) // consider if the target is 0, and current is 0, we have two res
-        );
+    const N = nums.length;
+    const dp = _.memoize(
+        (startIdx: number, target: number): number => {
+            if (startIdx === N) return 0;
+            if (startIdx === N - 1)
+                return (
+                    (nums[N - 1] === target ? 1 : 0) + (nums[N - 1] === -1 * target ? 1 : 0) // consider if the target is 0, and current is 0, we have two res
+                );
 
-      return (
-        dp(startIdx + 1, target + nums[startIdx]) +
-        dp(startIdx + 1, target - nums[startIdx])
-      );
-    },
-    (...args: number[]) => JSON.stringify(args) // general memorize resolver
-  );
+            return (
+                dp(startIdx + 1, target + nums[startIdx]) +
+                dp(startIdx + 1, target - nums[startIdx])
+            );
+        },
+        (...args: number[]) => JSON.stringify(args) // general memorize resolver
+    );
 
-  return dp(0, target);
+    return dp(0, target);
 }

@@ -1,7 +1,7 @@
 function trap(A: number[]): number {
-  const N = A.length;
+    const N = A.length;
 
-  /**
+    /**
     
         Using monotonic queue(stack) to keep the decreasing height (it'd trap the water)
     
@@ -13,34 +13,34 @@ function trap(A: number[]): number {
     
     **/
 
-  let lastHeight = 0;
-  let ret = 0;
+    let lastHeight = 0;
+    let ret = 0;
 
-  let mq: [index: number, height: number][] = []; // decreasing
+    let mq: [index: number, height: number][] = []; // decreasing
 
-  for (let i = 0; i < N; i++) {
-    const index = i;
-    const height = A[i];
+    for (let i = 0; i < N; i++) {
+        const index = i;
+        const height = A[i];
 
-    while (mq.length !== 0 && mq[mq.length - 1][1] <= height) {
-      const prev = mq.pop()!;
-      const [prevIndex, prevHeight] = prev;
+        while (mq.length !== 0 && mq[mq.length - 1][1] <= height) {
+            const prev = mq.pop()!;
+            const [prevIndex, prevHeight] = prev;
 
-      const water = (index - prevIndex - 1) * (prevHeight - lastHeight);
-      ret += water;
+            const water = (index - prevIndex - 1) * (prevHeight - lastHeight);
+            ret += water;
 
-      lastHeight = prevHeight;
+            lastHeight = prevHeight;
+        }
+
+        if (mq.length !== 0) {
+            const prev = mq[mq.length - 1];
+            const [prevIndex, prevHeight] = prev; // now current is the min height
+
+            const water = (index - prevIndex - 1) * (height - lastHeight);
+            ret += water;
+        }
+        mq.push([index, height]);
     }
 
-    if (mq.length !== 0) {
-      const prev = mq[mq.length - 1];
-      const [prevIndex, prevHeight] = prev; // now current is the min height
-
-      const water = (index - prevIndex - 1) * (height - lastHeight);
-      ret += water;
-    }
-    mq.push([index, height]);
-  }
-
-  return ret;
+    return ret;
 }

@@ -1,3 +1,3 @@
 class CustomFunction {
-  f!: (x: number, y: number) => number;
+    f!: (x: number, y: number) => number;
 }
