@@ -5,8 +5,8 @@ Collection of my leetcode prob solution.
 ## How to Run it
 
 ```
-$ yarn # install dependency, typescript, ts-node
-$ yarn ts-node src/rotate-array.ts
+$ npm i # install dependency, typescript, ts-node
+$ npx ts-node src/rotate-array.ts
 ```
 
 Don't forget to add the test case if you really wanna run it.
