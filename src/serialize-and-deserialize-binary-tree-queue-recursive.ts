@@ -27,9 +27,9 @@ function deserialize(data: string): TreeNode | null {
     .split(",")
     .map((val) => (val === "#" ? null : new TreeNode(Number(val))));
 
-  const preorder = (path: (TreeNode | null)[]): TreeNode => {
-    if (path.length === 0) return;
-    const node = path.shift();
+  const preorder = (path: (TreeNode | null)[]): TreeNode | null => {
+    if (path.length === 0) return null;
+    const node = path.shift()!;
     if (node === null) return null;
 
     node.left = preorder(path);

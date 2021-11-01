@@ -1,19 +1,5 @@
-/**
- * Definition for a binary tree node.
- * class TreeNode {
- *     val: number
- *     left: TreeNode | null
- *     right: TreeNode | null
- *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
- *         this.val = (val===undefined ? 0 : val)
- *         this.left = (left===undefined ? null : left)
- *         this.right = (right===undefined ? null : right)
- *     }
- * }
- */
-
 function preorderTraversal(root: TreeNode | null): number[] {
-	/**
+  /**
     preorder(DLR) using morris, count the D(root) first, 
     and we have L and R, we raise the L as new root, and put the R to the L's right most,
     and if we don't have the left child, we go to right child
@@ -27,23 +13,23 @@ function preorderTraversal(root: TreeNode | null): number[] {
      L2 L3                   R                   R
       
     **/
-	const ret: number[] = [];
-	let cur = root;
+  const ret: number[] = [];
+  let cur = root;
 
-	while (cur !== null) {
-		ret.push(cur.val);
-		const { left, right } = root;
+  while (cur !== null) {
+    ret.push(cur.val);
+    const { left, right } = cur;
 
-		if (left === null) {
-			cur = right;
-			continue;
-		}
+    if (left === null) {
+      cur = right;
+      continue;
+    }
 
-		let rightmost = left;
-		while (rightmost.right !== null) rightmost = rightmost.right;
-		rightmost.right = right;
-		cur = left;
-	}
+    let rightmost = left;
+    while (rightmost.right !== null) rightmost = rightmost.right;
+    rightmost.right = right;
+    cur = left;
+  }
 
-	return ret;
+  return ret;
 }
