@@ -4,7 +4,7 @@ function twoSum(nums: number[], target: number): number[] {
 
   for (let i = 0; i < N; i++) {
     const t = target - nums[i];
-    if (map.has(t) && map.get(t) !== i) return [i, map.get(t)];
+    if (map.has(t) && map.get(t) !== i) return [i, map.get(t)!];
   }
   return [];
 }

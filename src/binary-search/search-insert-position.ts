@@ -1,3 +1,4 @@
+export {};
 const findIndex = (
   A: number[],
   fn: (val: number, idx: number) => number

@@ -7,7 +7,7 @@ function subsetsWithDup(nums: number[]): number[][] {
 
   const backtracking = (
     start = 0,
-    prevRes = [],
+    prevRes: number[] = [],
     visited = Array.from({ length: N }, () => false)
   ): void => {
     if (start === N) {

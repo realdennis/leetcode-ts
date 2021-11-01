@@ -17,7 +17,7 @@ function subarraySum(nums: number[], k: number): number {
 
   for (let i = N - 1; i >= 0; i--) {
     const cur = prefix[i];
-    map.set(cur, map.get(cur) - 1); // relax;
+    map.set(cur, map.get(cur)! - 1); // relax;
     ret += map.get(cur - k) || 0;
   }
 

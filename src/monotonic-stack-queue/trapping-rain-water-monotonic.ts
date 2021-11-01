@@ -23,7 +23,7 @@ function trap(A: number[]): number {
     const height = A[i];
 
     while (mq.length !== 0 && mq[mq.length - 1][1] <= height) {
-      const prev = mq.pop();
+      const prev = mq.pop()!;
       const [prevIndex, prevHeight] = prev;
 
       const water = (index - prevIndex - 1) * (prevHeight - lastHeight);

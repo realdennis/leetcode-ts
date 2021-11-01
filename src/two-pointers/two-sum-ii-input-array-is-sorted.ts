@@ -1,3 +1,4 @@
+export {};
 function twoSum(numbers: number[], target: number): number[] {
   const N = numbers.length;
   let lo = 0,

@@ -19,12 +19,12 @@ function isMatch(s: string, p: string): boolean {
 
   // normal case
   if (!nextIsStar() && currIsMatch())
-    return isMatch1(s.substring(1), p.substring(1));
+    return isMatch(s.substring(1), p.substring(1));
   // * as multiple or as 0
   if (nextIsStar() && currIsMatch())
-    return isMatch1(s.substring(1), p) || isMatch1(s, p.substring(2));
+    return isMatch(s.substring(1), p) || isMatch(s, p.substring(2));
   // another chance while we treat the * as 0 times
-  if (nextIsStar() && !currIsMatch()) return isMatch1(s, p.substring(2));
+  if (nextIsStar() && !currIsMatch()) return isMatch(s, p.substring(2));
 
   return false;
 }

@@ -18,7 +18,7 @@ function shortestSubarray(nums: number[], k: number): number {
     // why increasing? since we don't care the case j if prefix[j] > prefix[k] (j<k)
 
     while (queue.length !== 0 && prefix[i] - prefix[queue[0]] >= k) {
-      const firstIdx = queue.shift();
+      const firstIdx = queue.shift()!;
       ret = Math.min(ret, i - firstIdx);
     }
     queue.push(i);
