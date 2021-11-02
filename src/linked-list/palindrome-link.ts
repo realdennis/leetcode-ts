@@ -26,18 +26,20 @@ function isPalindrome(head: ListNode | null): boolean {
     if (head === null) return false;
     if (head.next === null) return true;
 
-    let N = 0;
     let fast: ListNode | null = head;
     let slow: ListNode | null = head;
     while (fast !== null && fast.next !== null) {
         fast = fast.next.next;
         slow = slow!.next;
     }
+
+    // We keep compare the left part and right pard
     let right = reverse(slow);
+    let left = head;
     while (right) {
         if (right.val !== head!.val) return false;
         right = right.next;
-        head = head!.next;
+        left = left.next!;
     }
     return true;
 }

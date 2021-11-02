@@ -1,3 +1,4 @@
+export {};
 function lowestCommonAncestor(
     root: TreeNode | null,
     p: TreeNode | null,

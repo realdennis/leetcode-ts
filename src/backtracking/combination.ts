@@ -1,19 +1,25 @@
-function combine(n: number, k: number): number[][] {
-    const ans: number[][] = [];
-    const partial: number[] = [];
+const combine = (n: number, k: number): number[][] => {
+    const ret: number[][] = [];
 
-    const helper = (startNum = 1): void => {
-        if (partial.length === k) {
-            ans.push([...partial]);
+    const backtracking = (start: number, prevRes: number[]): void => {
+        if (prevRes.length === k) {
+            ret.push(Array.from(prevRes));
             return;
         }
-        for (let i = startNum; i <= n; i++) {
-            partial.push(i);
-            helper(i + 1);
-            partial.pop();
+        if (start > n) {
+            return;
         }
-    };
 
-    helper();
-    return ans;
-}
+        // pick or not pick
+
+        // pick
+        prevRes.push(start);
+        backtracking(start + 1, prevRes);
+        prevRes.pop(); // resume
+
+        // not pick
+        backtracking(start + 1, prevRes);
+    };
+    backtracking(1, []);
+    return ret;
+};
