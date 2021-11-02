@@ -9,42 +9,32 @@ function solve(board: string[][]): void {
 
     let collection: number[][] = [];
     let isBorder = false;
-    const dfs = (pos: number[]): void => {
-        const [x, y] = pos;
-        if (x < 0 || y < 0 || x >= M || y >= N) return;
-        if (visited[x][y]) return;
-        if (board[x][y] === "X") return;
+    const dfs = (i: number, j: number): void => {
+        if (i < 0 || j < 0 || i >= M || j >= N) return;
+        if (visited[i][j]) return;
+        if (board[i][j] === "X") return;
 
-        visited[x][y] = true;
-        collection.push([x, y]);
-        if (x === 0 || y === 0 || x === M - 1 || y === N - 1) {
+        visited[i][j] = true;
+        collection.push([i, j]);
+        if (i === 0 || j === 0 || i === M - 1 || j === N - 1) {
             isBorder = true;
         }
-        dfs([x - 1, y]);
-        dfs([x + 1, y]);
-        dfs([x, y - 1]);
-        dfs([x, y + 1]);
+        dfs(i - 1, j);
+        dfs(i + 1, j);
+        dfs(i, j - 1);
+        dfs(i, j + 1);
     };
 
     for (let i = 0; i < M; i++) {
         for (let j = 0; j < N; j++) {
             collection = [];
             isBorder = false;
-            dfs([i, j]);
+            dfs(i, j);
             if (isBorder) continue;
-            for (let col of collection) {
-                const [x, y] = col;
+            for (let pos of collection) {
+                const [x, y] = pos;
                 board[x][y] = "X";
             }
         }
     }
 }
-
-const q = [
-    ["X", "X", "X", "X"],
-    ["X", "O", "O", "X"],
-    ["X", "X", "O", "X"],
-    ["X", "O", "X", "X"],
-];
-solve(q);
-console.log(q);

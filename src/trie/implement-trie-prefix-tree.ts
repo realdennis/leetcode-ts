@@ -10,7 +10,7 @@ class Trie {
         const rest = word.substring(1);
         if (!this.map.has(first)) this.map.set(first, new Trie());
 
-        this.map.get(first).insert(rest);
+        this.map.get(first)!.insert(rest);
     }
 
     search(word: string): boolean {
@@ -20,7 +20,7 @@ class Trie {
         const rest = word.substring(1);
 
         if (!this.map.has(first)) return false;
-        return this.map.get(first).search(rest);
+        return this.map.get(first)!.search(rest);
     }
 
     startsWith(prefix: string): boolean {
@@ -29,7 +29,7 @@ class Trie {
         const rest = prefix.substring(1);
 
         if (!this.map.has(first)) return false;
-        return this.map.get(first).startsWith(rest);
+        return this.map.get(first)!.startsWith(rest);
     }
 }
 

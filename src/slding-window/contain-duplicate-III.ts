@@ -12,8 +12,8 @@ function containsNearbyAlmostDuplicate(nums: number[], k: number, t: number): bo
         const key = getBucketKey(cur);
         return (
             bucket.has(key) ||
-            (bucket.has(key + 1) && bucket.get(key + 1) - cur <= t) ||
-            (bucket.has(key - 1) && cur - bucket.get(key - 1) <= t)
+            (bucket.has(key + 1) && bucket.get(key + 1)! - cur <= t) ||
+            (bucket.has(key - 1) && cur - bucket.get(key - 1)! <= t)
         );
     };
 
