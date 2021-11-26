@@ -1,26 +1,20 @@
 function canFinish(N: number, A: number[][]): boolean {
-    // keep the in-degree state, and do the topological sort (relax the degree 0)
-
-    // initial in-degree state / adj graph
     const degree = Array.from({ length: N }, () => 0);
-    const adj: number[][] = Array.from({ length: N }, () => []);
+    const adjG: number[][] = Array.from({ length: N }, () => []);
 
-    for (const [from, to] of A) {
-        degree[to]++;
-        adj[from].push(to);
+    for (const [F, L] of A) {
+        degree[F]++;
+        adjG[F].push(L);
+        adjG[L].push(F);
     }
 
-    // do topological sort
     for (let i = 0; i < N; i++) {
-        // find the zero degree node
-        const node = degree.findIndex((val) => val === 0);
-        if (node === -1) return false;
+        const zDeg = degree.findIndex((deg) => deg === 0);
+        if (zDeg === -1) return false;
 
-        degree[node]--; // de-dup
+        degree[zDeg]--; // de-dup
 
-        for (const to of adj[node]) {
-            degree[to]--;
-        }
+        for (const adj of adjG[zDeg]) degree[adj]--; // relax adjacent nodes
     }
     return true;
 }

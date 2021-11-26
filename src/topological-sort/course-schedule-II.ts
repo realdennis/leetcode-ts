@@ -1,27 +1,27 @@
 function findOrder(N: number, A: number[][]): number[] {
-    const ret = [];
+    const ret: number[] = [];
 
-    // do topological sort using in-degree
+    const indegree: number[] = Array.from({ length: N }, () => 0);
+    const adjG: number[][] = Array.from<any, number[]>({ length: N }, () => []);
 
-    const degree = Array.from({ length: N }, () => 0); // indegree
-    const adj: number[][] = Array.from({ length: N }, () => []);
-
-    for (const [from, to] of A) {
-        degree[to]++;
-        adj[from].push(to);
+    for (const [F, L] of A) {
+        indegree[F]++;
+        adjG[F].push(L);
+        adjG[L].push(F);
     }
-
-    // topological sort
 
     for (let i = 0; i < N; i++) {
-        const node = degree.findIndex((val) => val === 0);
-        if (node === -1) return []; // impossible to finish
+        const zeroDegreeIdx = indegree.findIndex((deg) => deg === 0);
 
-        degree[node]--; // de-dup
-        ret.push(node);
+        if (zeroDegreeIdx === -1) return [];
 
-        for (const next of adj[node]) degree[next]--;
+        ret.push(zeroDegreeIdx);
+        indegree[zeroDegreeIdx]--; // de-dup;
+
+        // relax adj
+        for (const adj of adjG[zeroDegreeIdx]) {
+            indegree[adj]--;
+        }
     }
-
-    return ret.reverse();
+    return ret;
 }
