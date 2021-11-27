@@ -1,19 +1,22 @@
 function flatten(head: Node | null): Node | null {
-    const stack: Node[] = []; // store the next
-    let ptr = head;
-    while (ptr !== null) {
-        if (ptr.child !== null) {
-            const next = ptr.next;
-            const child = ptr.child;
-            next !== null && stack.push(next);
-            ptr.next = child;
-            ptr.child = null;
-        }
-        if (ptr.next === null && stack.length !== 0) ptr.next = stack.pop() as Node;
-        if (ptr.next !== null) ptr.next.prev = ptr;
+    if (head === null) return null;
+    const ref = head;
 
-        ptr = ptr.next;
+    const stack: Node[] = [];
+    while (true) {
+        if (head.child !== null) {
+            head.next !== null && stack.push(head.next);
+            head.next = head.child;
+            head.child = null;
+        }
+        if (head.next === null) {
+            if (stack.length === 0) break;
+            head.next = stack.pop()!;
+        }
+
+        head.next!.prev = head;
+        head = head.next!;
     }
 
-    return head;
+    return ref;
 }
