@@ -26,27 +26,25 @@ The state machine be like
 
     IDLE[i] = IDLE[i-1] vs RELEASE[i-1]
 
+We can optimize space by keep previous(i-1) state
+
  */
 
-// O(n) time, O(n) space, for O(1) space, check the `best-time-to-buy-and-sell-stock-with-cooldown-optimize`
+// O(n) time, O(1) space, for O(1) space, check the `best-time-to-buy-and-sell-stock-with-cooldown-optimize`
 function maxProfit(prices: number[]): number {
-    const N = prices.length;
+    let hold = Number.MIN_SAFE_INTEGER,
+        release = Number.MIN_SAFE_INTEGER,
+        idle = 0;
 
-    const hold = Array.from({ length: N }, () => 0);
-    const release = Array.from({ length: N }, () => 0);
-    const idle = Array.from({ length: N }, () => 0);
+    for (const price of prices) {
+        const _hold = Math.max(hold, idle - price);
+        const _release = price + hold;
+        const _idle = Math.max(release, idle);
 
-    if (N < 2) return 0;
-
-    hold[0] = -prices[0];
-    release[0] = Number.MIN_SAFE_INTEGER;
-    idle[0] = 0;
-
-    for (let i = 1; i < N; i++) {
-        hold[i] = Math.max(hold[i - 1], idle[i - 1] - prices[i]);
-        release[i] = hold[i - 1] + prices[i];
-        idle[i] = Math.max(idle[i - 1], release[i - 1]);
+        hold = _hold;
+        release = _release;
+        idle = _idle;
     }
 
-    return Math.max(release[N - 1], idle[N - 1]);
+    return Math.max(idle, release);
 }
