@@ -1,24 +1,25 @@
+const knapsacks = (A: number[], target: number): boolean => {
+    const N = A.length;
+    let dp = Array.from({ length: target + 1 }, () => false);
+    dp[0] = true;
+
+    for (let i = N - 1; i >= 0; i--) {
+        const _dp = Array.from(dp);
+        for (let j = target; j >= 0; j--) {
+            // backward for de-dup
+            if (_dp[j] === true && j + A[i] <= target) _dp[j + A[i]] = true;
+        }
+        dp = _dp;
+        if (dp[target]) return true; // early return
+    }
+    return false;
+};
+
 function canPartition(nums: number[]): boolean {
-    /**
-          
-          It's the 0/1 knapsacks (coin change) prob, it you treat it as find the combination of sum/2
-          
-    **/
-    const N = nums.length;
-    const sum = nums.reduce((prev, next) => prev + next, 0);
-    if (sum % 2 === 1) return false;
+    const sum = nums.reduce((prev, cur) => prev + cur, 0);
+    if (sum % 2 === 1) return false; // odd sum cannot be divided to two equal subset sum
+
     const target = sum / 2;
 
-    // 2-d dp table compress
-    let dp = Array.from({ length: target + 1 }, () => false);
-    let dpNew = Array.from({ length: target + 1 }, () => false);
-    dp[nums[N - 1]] = true;
-    for (let i = N - 2; i >= 0; i--) {
-        for (let j = 0; j <= target; j++) {
-            dpNew[j] = dp[j] || (j >= nums[i] && dp[j - nums[i]]);
-        }
-        dp = Array.from(dpNew);
-    }
-
-    return dp[target];
+    return knapsacks(nums, target);
 }

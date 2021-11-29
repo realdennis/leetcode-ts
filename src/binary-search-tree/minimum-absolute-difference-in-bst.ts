@@ -1,9 +1,9 @@
-function increasingBST(root: TreeNode | null): TreeNode | null {
-    // let's do morris traversal
-    let cur = root;
-    let prevRoot = new TreeNode(0);
-    let prev = prevRoot;
+function getMinimumDifference(root: TreeNode | null): number {
+    let ret = Number.MAX_SAFE_INTEGER;
 
+    // Let's do the morris traversal
+    let cur = root;
+    let prev = Number.MIN_SAFE_INTEGER;
     while (cur !== null) {
         if (cur.left !== null) {
             const left = cur.left;
@@ -15,11 +15,10 @@ function increasingBST(root: TreeNode | null): TreeNode | null {
 
             cur = left;
         } else {
-            prev.right = cur;
-            prev = prev.right;
+            ret = Math.min(ret, cur.val - prev);
+            prev = cur.val;
             cur = cur.right;
         }
     }
-
-    return prevRoot.right;
+    return ret;
 }
