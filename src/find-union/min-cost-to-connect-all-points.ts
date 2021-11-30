@@ -1,37 +1,36 @@
 function minCostConnectPoints(points: number[][]): number {
-    // this is the kruskal algorithm
     const N = points.length;
-    const edges: [dist: number, v1: number, v2: number][] = [];
 
-    // O(E)
-    for (let i = 0; i < N; i++) {
-        for (let j = i + 1; j < N; j++) {
-            const dist =
-                Math.abs(points[i][0] - points[j][0]) + Math.abs(points[i][1] - points[j][1]);
-            edges.push([dist, i, j]);
-        }
-    }
+    // priority queue: collect the edges
+    const minQueue = new MinPriorityQueue({
+        priority: (info: number[]) => info[0],
+    });
 
-    // O(ElogE), increasing
-    edges.sort((prev, next) => prev[0] - next[0]);
-    // keep pick the least cost, check no cycle, and check we pick all node
+    // utils: distance calc and union-find
+    const getDist = (node1: number[], node2: number[]): number =>
+        Math.abs(node1[0] - node2[0]) + Math.abs(node1[1] - node2[1]);
+    const table = Array.from({ length: N }, () => -1);
+    const find = (n: number): number =>
+        table[n] !== n && table[n] !== -1 ? find(table[n]) : (table[n] = n);
+    const union = (i: number, j: number) => (table[find(i)] = j);
 
-    // in case we need to detect if cyclic, we should implement a disjoin set to union & find,
-    const P = Array.from({ length: N }, (_, idx) => idx);
-    const find = (i: number): number => (i === P[i] ? i : find(P[i]));
-    const union = (i: number, j: number): void => {
-        const p1 = find(i);
-        const p2 = find(j);
-        P[p1] = p2;
-    };
-
+    // return value
     let cost = 0;
-    let edgeCounts = 0;
-    for (const [dist, v1, v2] of edges) {
-        if (find(v1) === find(v2)) continue;
-        union(v1, v2);
-        edgeCounts++;
-        cost += dist;
+
+    // Collect edges in heap O(ElogE)
+    for (let i = 0; i < N; i++)
+        for (let j = i + 1; j < N; j++) minQueue.enqueue([getDist(points[i], points[j]), i, j]);
+
+    for (let i = 0; i < N - 1; i++) {
+        // edge counts = point counts - 1
+        const candidate = minQueue.dequeue().element;
+        const [d, u, v] = candidate;
+        if (find(u) === find(v)) {
+            i--;
+            continue;
+        }
+        union(u, v);
+        cost += d;
     }
     return cost;
 }
