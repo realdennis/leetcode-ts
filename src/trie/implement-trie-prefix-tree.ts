@@ -1,6 +1,5 @@
 class Trie {
     private map: Map<string, Trie> = new Map();
-    constructor() {}
     insert(word: string): void {
         if (word === "") {
             this.map.set("#", new Trie());
